@@ -1,17 +1,14 @@
 # Visit https://github.com/lowlighter/metrics#-documentation for full reference
 name: Metrics
 on:
-  # Schedule daily updates
-  schedule: [{cron: "0 0 * * *"}]
-  # (optional) Run workflow manually
+  # Schedule updates (each hour)
+  schedule: [{cron: "0 * * * *"}]
+  # Lines below let you run workflow manually and on each commit
   workflow_dispatch:
-  # (optional) Run workflow when pushing on master/main
   push: {branches: ["master", "main"]}
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    environment:
-      name: production
     permissions:
       contents: write
     steps:
@@ -27,7 +24,7 @@ jobs:
           config_timezone: America/Denver
           plugin_habits: yes
           plugin_habits_charts: yes
-          plugin_habits_charts_type: chartist
+          plugin_habits_charts_type: classic
           plugin_habits_days: 14
           plugin_habits_facts: yes
           plugin_habits_from: 200
@@ -45,5 +42,4 @@ jobs:
           plugin_languages_sections: most-used
           plugin_languages_skipped: ObsidianVaults
           plugin_languages_threshold: 0%
-          plugin_skyline_year: current-year
           repositories_forks: yes
